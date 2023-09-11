@@ -10,8 +10,8 @@ router.post('/signup', checkLoggedIn, async (req, res) => {
 
     try {
         await employee.save()
-        const token = await employee.generateAuthToken()
-        res.status(201).send({ employee, token })
+        // const token = await employee.generateAuthToken()
+        res.status(201).send({ data: "Employee added successfully!" })
     } catch (e) {
         console.log(e)
         res.status(400).send(e)

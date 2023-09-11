@@ -3,9 +3,9 @@ const moment = require('moment')
 
 const orderSchema = mongoose.Schema({
     employee: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: "Employee"
+        ref: 'Employee'
     },
     items: [
         {
@@ -29,6 +29,10 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true,
         enum: ['online', 'cod'],
+    },
+    completed: {
+        type: Boolean,
+        default: false
     },
     orderDate: {
         type: Date,

@@ -32,22 +32,22 @@ passport.use(
     )
 );
 
-passport.use(
-    new JWTstrategy(
-        {
-            secretOrKey: 'TOP_SECRET',
-            jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
-        },
-        async (token, done) => {
-            try {
-                console.log("in", token)
-                return done(null, token.emp);
-            } catch (error) {
-                done(error);
-            }
-        }
-    )
-);
+// passport.use(
+//     new JWTstrategy(
+//         {
+//             secretOrKey: 'TOP_SECRET',
+//             jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+//         },
+//         async (token, done) => {
+//             try {
+//                 console.log("in", token)
+//                 return done(null, token.emp);
+//             } catch (error) {
+//                 done(error);
+//             }
+//         }
+//     )
+// );
 
 passport.serializeUser((empObj, done) => {
     console.log("-----Serialize-----")

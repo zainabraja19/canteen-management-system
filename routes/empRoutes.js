@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
     try {
         const menu = await Menu.find({})
         // console.log(menu)
+        console.log(req.session)
         res.status(200).send({ data: menu })
     } catch (error) {
         res.send(500).send({ error })
@@ -108,8 +109,8 @@ router.delete('/delete-account', async (req, res) => {
             return res.status(404).send({ error: 'Employee not found' });
         }
 
-        await Cart.deleteMany({ employee: req.user.empId });
-        await Order.deleteMany({ orderedBy: req.user.empId });
+        await Cart.deleteMany({ employee: req.user._id });
+        await Order.deleteMany({ orderedBy: req.user._id });
 
         res.status(200).send({ data: "Deleted successfully" })
 
