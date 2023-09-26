@@ -42,7 +42,7 @@ app.use(
     // verifyToken,
     // verifyAdmin,
     checkAuthenticated,
-    // verifyRole('admin'),
+    verifyRole('admin'),
     require('./routes/adminRoutes')
 );
 

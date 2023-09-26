@@ -38,7 +38,7 @@ const verifyRole = (role) => {
         } else {
             res.status(400).send({ error: "You are not Authorized to view this route" })
             // req.flash('warning', 'you are not Authorized to see this route');
-            res.redirect('/auth/login');
+            // res.redirect('/auth/login');
         }
     }
 }
