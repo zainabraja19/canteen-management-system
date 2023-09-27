@@ -15,13 +15,13 @@ const verifyToken = async (req, res, next) => {
         req.user = user
         next()
     } catch (e) {
-        res.status(401).send({ error: 'Please authenticate.' })
+        res.status(401).json({ data: null, error: 'Please authenticate.' })
     }
 }
 
 const checkAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) { return next() }
-    res.status(401).send({ error: 'Please authenticate.' })
+    res.status(401).json({ data: null, error: 'Please authenticate.' })
 }
 
 const checkLoggedIn = (req, res, next) => {

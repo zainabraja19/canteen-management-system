@@ -14,6 +14,7 @@ passport.use(
         async (email, password, done) => {
             try {
                 console.log("in passport")
+                await Employee.findByCredentials(email, password).then(data => console.log("d", data)).catch(err => console.log("e", err))
                 const employee = await Employee.findByCredentials(email, password)
                 console.log("18", employee)
                 if (!employee) {
@@ -22,11 +23,13 @@ passport.use(
 
                 const emp = { ...employee.toObject() };
                 delete emp.password;
-                console.log(employee)
+                delete emp.__v
+                console.log("emp", employee)
 
                 return done(null, emp, { message: 'Logged in Successfully' });
             } catch (error) {
-                return done(error);
+                // console.log(error)
+                return done(error.message);
             }
         }
     )

@@ -15,18 +15,22 @@ const Employee = require('../models/employee')
 //         req.user = user
 //         next()
 //     } catch (e) {
-//         res.status(401).send({ error: 'Please authenticate.' })
+//         res.status(401).json({ error: 'Please authenticate.' })
 //     }
 // }
 
 const checkAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) { return next() }
-    res.status(401).send({ error: 'Please authenticate.' })
+    console.log(req);
+    if (req.isAuthenticated()) {
+        console.log("in")
+        return next()
+    }
+    res.status(401).json({ data: null, error: 'Please authenticate.' })
 }
 
 const checkLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
-        res.status(401).send({ error: 'You are already logged in!' })
+        res.status(401).json({ data: null, error: 'You are already logged in!' })
     }
     next()
 }
@@ -36,7 +40,7 @@ const verifyRole = (role) => {
         if (req.user.role === role) {
             next();
         } else {
-            res.status(400).send({ error: "You are not Authorized to view this route" })
+            res.status(400).json({ data: null, error: "You are not Authorized to view this route" })
             // req.flash('warning', 'you are not Authorized to see this route');
             // res.redirect('/auth/login');
         }

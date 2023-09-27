@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
         .populate('items.item')
         .exec()
 
-    res.status(200).send({ data: orders })
+    res.status(200).json({ data: orders })
 })
 
 // Add dish
@@ -22,10 +22,10 @@ router.post('/add-dish', async (req, res) => {
 
     try {
         await menuItem.save()
-        res.status(201).send({ data: "Added new item!" })
+        res.status(201).json({ data: "Added new item!" })
     } catch (e) {
         console.log(e)
-        res.status(400).send(e)
+        res.status(400).json({ data: null, error: e })
     }
 })
 
@@ -42,7 +42,7 @@ router.delete('/remove-dish/:id', async (req, res) => {
         const item = await Menu.findByIdAndDelete(req.params.id);
 
         if (!emp) {
-            return res.status(404).send({ error: 'Dish not found' });
+            return res.status(404).json({ data: null, error: 'Dish not found' });
         }
 
         // update the document and remove dish
@@ -50,10 +50,10 @@ router.delete('/remove-dish/:id', async (req, res) => {
         // await Cart.deleteMany({ "items.item": req.params.id });
         // await Order.deleteMany({ "items.item": req.params.id });
 
-        res.status(200).send({ data: "Deleted item successfully" })
+        res.status(200).json({ data: "Deleted item successfully" })
     } catch (e) {
         console.log(e)
-        res.status(500).send({ error: e })
+        res.status(500).json({ data: null, error: e })
     }
 })
 

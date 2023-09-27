@@ -10,64 +10,44 @@ router.post('/signup', checkLoggedIn, async (req, res) => {
 
     try {
         await employee.save()
-        // const token = await employee.generateAuthToken()
-        res.status(201).send({ data: "Employee added successfully!" })
+        res.status(201).json({ data: "Employee added successfully!" })
     } catch (e) {
         console.log(e)
-        res.status(400).send(e)
+        res.status(400).json({ data: null, error: e })
     }
 })
-
-// router.post("/login", passport.authenticate('login', {
-// successRedirect: "/dashboard",
-// failureRedirect: "/login",
-// }))
 
 
 router.post('/login', checkLoggedIn,
     passport.authenticate(
         'login', {
-        // successRedirect: "/dashboard",
-        // failureRedirect: "/login",
-        // failureFlash: true,
     }),
     (req, res) => {
         try {
-            res.status(200).send({ data: "Login successful!" });
+            // console.log("req", req.user)
+            // res.cookie('userid', req.user.id, { maxAge: 3 * 24 * 60 * 60 * 1000 });
+            console.log(req.headers.cookie);
+            res.status(200).json({ data: { user: req.user, cookie: req.headers.cookie } });
         } catch (e) {
-            res.status(400).send({ error: e })
+            console.log("login", e)
+            res.status(400).json({ data: null, error: e })
         }
     }
 );
-// async (req, res) => {
-//     try {
-//         // const employee = await Employee.findByCredentials(req.body.email, req.body.password)
-//         const token = await employee.generateAuthToken()
-//         res.send({ employee, token })
-//     } catch (e) {
-//         console.log(e)
-//         res.status(400).send()
-//     }
-// }
 
 
 router.get('/logout', checkAuthenticated, async (req, res) => {
     try {
-        // req.employee.tokens = req.employee.tokens.filter((token) => {
-        //     return token.token !== req.token
-        // })
-        // await req.employee.save()
-
-        // res.send()
         console.log("here")
         req.logout(function (err) {
             if (err) { return next(err); }
-            // res.redirect('/login');
-            res.status(200).send({ data: "Logout successful!" })
+            res.clearCookie('connect.sid');
+            res.status(200).json({ data: "Logout successful!" })
         });
+
         console.log(`-------> User Logged out`)
     } catch (e) {
-        res.status(500).send()
+        res.status(500).json({ data: null, error: e })
     }
 })
 
