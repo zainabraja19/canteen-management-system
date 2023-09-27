@@ -62,15 +62,13 @@ employeeSchema.methods.generateAuthToken = async function () {
 employeeSchema.statics.findByCredentials = async (email, password) => {
     // try {
     const emp = await Employee.findOne({ email })
-
     if (!emp) {
-        throw Error('Incorrect username or password. Please try again!')
+        throw new Error('Incorrect username or password. Please try again!')
     }
 
     const isMatch = await bcrypt.compare(password, emp.password)
-
     if (!isMatch) {
-        throw Error('Incorrect username or password. Please try again!')
+        throw new Error('Incorrect username or password. Please try again!')
     }
 
     return emp

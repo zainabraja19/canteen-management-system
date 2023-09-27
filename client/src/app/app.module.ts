@@ -23,19 +23,14 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     AdminComponent,
     EmployeeComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutes,
-  ],
+  imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutes],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

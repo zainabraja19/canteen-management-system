@@ -1,20 +1,98 @@
 <div class="row">
-    <div class="col-12 d-flex justify-content-center align-items-center">
-        <div class="card m-4 p-4 col-lg-5 col-md-6 col-12">
-            <form class="row g-3" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-                <div class="col-12">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4" ngModel name="email" email required>
-                </div>
-                <div class="col-12">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" ngModel name="password" required
-                        minlength="6">
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Sign In</button>
-                </div>
-            </form>
+  <div class="col-12 d-flex justify-content-center align-items-center">
+    <div class="card m-4 p-4 col-lg-6 col-md-8 col-12">
+      <!-- <div class="card-header p-3 text-center">LOGIN</div> -->
+      <h4 class="text-center fw-bold">LOGIN</h4>
+      <div class="card-body">
+        <div
+          class="alert alert-danger alert-dismissible fade show"
+          role="alert"
+          *ngIf="error"
+        >
+          {{ error }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
         </div>
+        <form
+          class="row g-3"
+          #loginForm="ngForm"
+          (ngSubmit)="onSubmit(loginForm)"
+        >
+          <div class="col-12">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              ngModel
+              name="email"
+              email
+              required
+              #email="ngModel"
+            />
+            <div
+              class="text-danger"
+              *ngIf="!email?.valid && (email?.dirty || email?.touched)"
+            >
+              <div *ngIf="email.errors.required">
+                <i class="bi bi-info-circle"></i> Email is required!
+              </div>
+              <div *ngIf="email.errors.email">
+                <i class="bi bi-info-circle"></i> Please enter a valid email!
+              </div>
+            </div>
+            <!-- <span
+            class="text-danger"
+            *ngIf="
+              (loginForm.value.email.touched || loginForm.submitted) &&
+              email.errors?.required
+            "
+          >
+            Name is required
+          </span> -->
+          </div>
+          <div class="col-12">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              ngModel
+              name="password"
+              required
+              #password="ngModel"
+            />
+            <div
+              class="text-danger"
+              *ngIf="!password?.valid && (password?.dirty || password?.touched)"
+            >
+              <div *ngIf="password.errors.required">
+                <i class="bi bi-info-circle"></i> Password is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 d-grid mt-4">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="!loginForm.valid"
+            >
+              Sign In
+            </button>
+          </div>
+          <hr />
+          <div class="mt-0 text-secondary float-right">
+            Not a member?
+            <a class="text-primary text-decoration-none" routerLink="/signup"
+              >Sign Up</a
+            >
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

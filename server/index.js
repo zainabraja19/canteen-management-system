@@ -62,23 +62,14 @@ app.use(
     require('./routes/adminRoutes')
 );
 
-// const orderedBy = new mongoose.Types.ObjectId('64f8d9e49377e7464606c2b5');
-// const items = [{ item: new mongoose.Types.ObjectId('64f8d8ff63b2c799d1f4d54c'), quantity: 2 }];
+// Error handler
+app.use((err, req, res, next) => {
+    if (err.message) {
+        return res.status(401).json({ data: null, error: err.message });
+    }
 
-// Order.findById('64f8dc834697a4685d95ce03')
-//     .populate('orderedBy')
-//     .populate('items.item')
-//     .exec()
-//     .then(order => {
-//         console.log('Populated Order:', order);
-//         order.items.forEach(item => {
-//             console.log('Item Name:', item.item);
-//         });
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//     });
-
+    return res.status(500).json({ data: null, error: 'Internal Server Error' });
+});
 
 app.listen(3000, () => {
     console.log("Listening on port 3000!")

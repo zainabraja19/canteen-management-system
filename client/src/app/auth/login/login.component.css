@@ -1,0 +1,12 @@
+.card {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #dc3545;
+}
+
+.authImg {
+  width: 100%;
+  height: 100%;
+}
