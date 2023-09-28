@@ -20,7 +20,6 @@ const Employee = require('../models/employee')
 // }
 
 const checkAuthenticated = (req, res, next) => {
-    console.log(req);
     if (req.isAuthenticated()) {
         console.log("in")
         return next()

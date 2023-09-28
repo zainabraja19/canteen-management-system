@@ -12,8 +12,8 @@ router.post('/signup', checkLoggedIn, async (req, res) => {
         await employee.save()
         res.status(201).json({ data: "Employee added successfully!" })
     } catch (e) {
-        console.log(e)
-        res.status(400).json({ data: null, error: e })
+        const error = Employee.handleError(e)
+        res.status(400).json({ data: null, error })
     }
 })
 

@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class SignupComponent {
   error: string = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit(form: NgForm) {
     console.log(form);
@@ -32,7 +32,7 @@ export class SignupComponent {
     authObs.subscribe({
       next: (res) => {
         console.log(res);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
         this.error = null;
       },
       error: (error) => {

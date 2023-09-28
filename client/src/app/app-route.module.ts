@@ -4,17 +4,27 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AdminComponent } from './admin/admin.component';
 import { EmployeeComponent } from './employee/employee.component';
-import { canActivateGuard } from './auth/auth.guard';
+import { loginGuard, permissionGuard } from './auth/auth.guard';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [canActivateGuard] },
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
+  {
+    path: 'auth', canActivateChild: [loginGuard], children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'signup', component: SignupComponent },
+    ]
+  },
+  { path: 'admin', component: AdminComponent, data: { role: "admin" }, canActivate: [permissionGuard] },
   {
     path: 'employee',
     component: EmployeeComponent,
-    canActivate: [canActivateGuard],
+    data: { role: "employee" },
+    canActivate: [permissionGuard],
+  },
+  {
+    path: '**',
+    component: ErrorComponent,
   },
 ];
 
@@ -22,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutes {}
+export class AppRoutes { }

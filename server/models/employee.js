@@ -24,7 +24,7 @@ const employeeSchema = mongoose.Schema({
         lowercase: true,
         validate(value) {
             if (!validator.isEmail(value)) {
-                throw Error('Email is invalid')
+                throw Error('Please enter a valid email!')
             }
         }
     },
@@ -36,7 +36,7 @@ const employeeSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 7,
+        minlength: 6,
         trim: true,
     },
     role: {
@@ -48,6 +48,29 @@ const employeeSchema = mongoose.Schema({
         type: Buffer
     }
 })
+
+employeeSchema.statics.handleError = (error) => {
+    console.log(error.name)
+    const errors = {}
+
+    // Handle duplicate key error
+    if (error.name === "MongoServerError" && error.code === 11000) {
+        const key = Object.keys(error.keyPattern)[0];
+        errors[key] = `${key} already exists`
+    }
+
+    // Handle validation error
+    if (error.name === "ValidationError" && error.errors) {
+        Object.keys(error.errors).map(key => {
+            console.log(key)
+            errors[key] = error.errors[key].message
+            console.log(errors)
+
+        })
+    }
+
+    return errors
+}
 
 employeeSchema.methods.generateAuthToken = async function () {
     const emp = this

@@ -4,40 +4,15 @@
       <!-- <div class="card-header p-3 text-center">LOGIN</div> -->
       <h4 class="text-center fw-bold">LOGIN</h4>
       <div class="card-body">
-        <div
-          class="alert alert-danger alert-dismissible fade show"
-          role="alert"
-          *ngIf="error"
-        >
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="error">
           {{ error }}
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <form
-          class="row g-3"
-          #loginForm="ngForm"
-          (ngSubmit)="onSubmit(loginForm)"
-        >
+        <form class="row g-3" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
           <div class="col-12">
             <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              ngModel
-              name="email"
-              email
-              required
-              #email="ngModel"
-            />
-            <div
-              class="text-danger"
-              *ngIf="!email?.valid && (email?.dirty || email?.touched)"
-            >
+            <input type="email" class="form-control" id="email" ngModel name="email" email required #email="ngModel" />
+            <div class="text-danger" *ngIf="!email?.valid && (email?.dirty || email?.touched)">
               <div *ngIf="email.errors.required">
                 <i class="bi bi-info-circle"></i> Email is required!
               </div>
@@ -57,39 +32,23 @@
           </div>
           <div class="col-12">
             <label for="password" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              ngModel
-              name="password"
-              required
-              #password="ngModel"
-            />
-            <div
-              class="text-danger"
-              *ngIf="!password?.valid && (password?.dirty || password?.touched)"
-            >
+            <input type="password" class="form-control" id="password" ngModel name="password" required
+              #password="ngModel" />
+            <div class="text-danger" *ngIf="!password?.valid && (password?.dirty || password?.touched)">
               <div *ngIf="password.errors.required">
                 <i class="bi bi-info-circle"></i> Password is required!
               </div>
             </div>
           </div>
           <div class="col-12 d-grid mt-4">
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="!loginForm.valid"
-            >
+            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">
               Sign In
             </button>
           </div>
           <hr />
           <div class="mt-0 text-secondary float-right">
-            Not a member?
-            <a class="text-primary text-decoration-none" routerLink="/signup"
-              >Sign Up</a
-            >
+            Don't have an account?
+            <a class="text-primary text-decoration-none" routerLink="/auth/signup">Sign Up</a>
           </div>
         </form>
       </div>

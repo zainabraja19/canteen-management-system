@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     HeaderComponent,
     AdminComponent,
     EmployeeComponent,
+    ErrorComponent,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutes],
   providers: [
