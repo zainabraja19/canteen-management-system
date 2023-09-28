@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthResponse, AuthService } from '../auth.service';
-import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -31,7 +31,6 @@ export class SignupComponent {
 
     authObs.subscribe({
       next: (res) => {
-        console.log(res);
         this.router.navigate(['/auth/login']);
         this.error = null;
       },

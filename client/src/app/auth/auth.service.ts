@@ -29,14 +29,13 @@ export class AuthService {
         return this.http
             .post<AuthResponse>(
                 'http://localhost:3000/auth/signup',
-                { empId, name, email, phone, password },
-                { withCredentials: true }
+                { empId, name, email, phone, password }
             )
             .pipe(
                 catchError(this.handleError),
-                tap((response) => {
-                    return this.handleAuthentication(response);
-                })
+                // tap((response) => {
+                //     return this.handleAuthentication(response);
+                // })
             );
     }
 
@@ -46,8 +45,7 @@ export class AuthService {
         return this.http
             .post<AuthResponse>(
                 'http://localhost:3000/auth/login',
-                { email, password },
-                { withCredentials: true }
+                { email, password }
             )
             .pipe(
                 catchError(this.handleError),

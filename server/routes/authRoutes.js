@@ -10,7 +10,10 @@ router.post('/signup', checkLoggedIn, async (req, res) => {
     // HANDLE SIGNUP VALIDATIONS PROPERLY
     try {
         await employee.save()
-        res.status(201).json({ data: "Employee added successfully!" })
+        const emp = { ...employee.toObject() };
+        delete emp.password;
+        delete emp.__v
+        res.status(201).json({ data: emp })
     } catch (e) {
         const error = Employee.handleError(e)
         res.status(400).json({ data: null, error })
