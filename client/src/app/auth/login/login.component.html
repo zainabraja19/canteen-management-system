@@ -12,7 +12,7 @@
           <div class="col-12">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" ngModel name="email" email required #email="ngModel" />
-            <div class="text-danger" *ngIf="!email?.valid && (email?.dirty || email?.touched)">
+            <div class="text-danger mt-2" *ngIf="!email?.valid && (email?.dirty || email?.touched)">
               <div *ngIf="email.errors.required">
                 <i class="bi bi-info-circle"></i> Email is required!
               </div>
@@ -21,7 +21,7 @@
               </div>
             </div>
             <!-- <span
-            class="text-danger"
+            class="text-danger mt-2"
             *ngIf="
               (loginForm.value.email.touched || loginForm.submitted) &&
               email.errors?.required
@@ -34,7 +34,7 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" ngModel name="password" required
               #password="ngModel" />
-            <div class="text-danger" *ngIf="!password?.valid && (password?.dirty || password?.touched)">
+            <div class="text-danger mt-2" *ngIf="!password?.valid && (password?.dirty || password?.touched)">
               <div *ngIf="password.errors.required">
                 <i class="bi bi-info-circle"></i> Password is required!
               </div>

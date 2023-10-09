@@ -50,7 +50,6 @@ const employeeSchema = mongoose.Schema({
 })
 
 employeeSchema.statics.handleError = (error) => {
-    console.log(error.name)
     const errors = {}
 
     // Handle duplicate key error
@@ -62,10 +61,7 @@ employeeSchema.statics.handleError = (error) => {
     // Handle validation error
     if (error.name === "ValidationError" && error.errors) {
         Object.keys(error.errors).map(key => {
-            console.log(key)
             errors[key] = error.errors[key].message
-            console.log(errors)
-
         })
     }
 

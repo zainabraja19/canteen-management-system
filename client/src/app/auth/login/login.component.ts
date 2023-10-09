@@ -12,10 +12,9 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   error: string = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit(form: NgForm) {
-    console.log(form);
     if (!form.valid) {
       return;
     }
@@ -28,7 +27,6 @@ export class LoginComponent {
 
     authObs.subscribe({
       next: (res) => {
-        console.log(res);
         if (res.data['role'] === 'admin') {
           this.router.navigate(['/admin']);
         } else {
@@ -37,7 +35,6 @@ export class LoginComponent {
         this.error = null;
       },
       error: (error) => {
-        console.log(error.message);
         this.error = error.message;
       },
     });

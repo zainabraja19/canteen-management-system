@@ -16,6 +16,7 @@ export class AuthService {
     isAuthenticated: Boolean;
     role: string;
     user = new BehaviorSubject<User>(null);
+    private tokenExpirationTimer: any;
     // Inject httpclient
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -62,7 +63,8 @@ export class AuthService {
             email: string,
             phone: string,
             role: string,
-            _id: string
+            _id: string,
+            expiresIn: Date
         } = JSON.parse(localStorage.getItem('userData'));
         if (!userData) {
             return;
@@ -74,7 +76,8 @@ export class AuthService {
             userData.email,
             userData.phone,
             userData.role,
-            userData._id
+            userData._id,
+            userData.expiresIn
         );
         this.isAuthenticated = true
         this.role = userData.role
@@ -83,12 +86,22 @@ export class AuthService {
 
     logoutUser() {
         this.http.get('http://localhost:3000/auth/logout').subscribe((res) => {
-            console.log(res);
             this.isAuthenticated = false;
             this.user.next(null);
             this.router.navigate(['/auth/login']);
             localStorage.removeItem('userData');
+
+            if (this.tokenExpirationTimer) {
+                clearTimeout(this.tokenExpirationTimer);
+            }
+            this.tokenExpirationTimer = null;
         });
+    }
+
+    autoLogout(expirationDuration: number) {
+        this.tokenExpirationTimer = setTimeout(() => {
+            this.logoutUser();
+        }, expirationDuration);
     }
 
     getRole() {
@@ -97,8 +110,14 @@ export class AuthService {
     }
 
     private handleAuthentication(response) {
-        const { email, empId, name, phone, role, _id } = response.data;
-        const user = new User(email, empId, name, phone, role, _id);
+        const { email, empId, name, phone, role, _id, expiresIn } = response.data;
+
+        const user = new User(email, empId, name, phone, role, _id, new Date(expiresIn));
+
+        const expirationDuration = new Date(expiresIn).getTime() - new Date().getTime() - 100
+
+        this.user.next(user);
+        this.autoLogout(expirationDuration);
 
         localStorage.setItem('userData', JSON.stringify(response.data));
 
@@ -108,7 +127,6 @@ export class AuthService {
 
     private handleError(errorRes) {
         // let errorMessage = 'An error occurred. Please try again!';
-        console.log("error", errorRes);
         let errorMessage = 'An error occurred. Please try again!'
         let error = errorRes.error.error
 

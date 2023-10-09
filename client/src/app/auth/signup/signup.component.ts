@@ -15,7 +15,6 @@ export class SignupComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit(form: NgForm) {
-    console.log(form);
     if (!form.valid) {
       return;
     }
@@ -35,7 +34,6 @@ export class SignupComponent {
         this.error = null;
       },
       error: (error) => {
-        console.log(error.message);
         this.error = error.message;
       },
     });

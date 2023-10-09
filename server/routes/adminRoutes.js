@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 })
 
 // Add dish
-router.post('/add-dish', async (req, res) => {
+router.post('/dish', async (req, res) => {
     const menuItem = new Menu(req.body)
 
     try {
@@ -30,14 +30,14 @@ router.post('/add-dish', async (req, res) => {
 })
 
 // Edit dish details
-router.patch('/edit-dish/:id', async (req, res) => {
+router.patch('/dish/:id', async (req, res) => {
     try {
         // const updatedMenu = await Menu.findByIdAndUpdate(id)
     } catch (err) { }
 })
 
 // Remove dish
-router.delete('/remove-dish/:id', async (req, res) => {
+router.delete('/dish/:id', async (req, res) => {
     try {
         const item = await Menu.findByIdAndDelete(req.params.id);
 

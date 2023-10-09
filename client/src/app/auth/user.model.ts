@@ -5,6 +5,7 @@ export class User {
         private name: string,
         private phone: string,
         private role: string,
-        private _id: string
+        private _id: string,
+        private expiresIn: Date
     ) { }
 }

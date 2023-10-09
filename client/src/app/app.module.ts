@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,7 +16,6 @@ import { ErrorComponent } from './error/error.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
     SignupComponent,
     LoginComponent,
     HeaderComponent,
@@ -35,4 +33,4 @@ import { ErrorComponent } from './error/error.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
