@@ -22,4 +22,4 @@ const verifyRole = (role) => {
     }
 }
 
-export default { checkAuthenticated, checkLoggedIn, verifyRole }
+module.exports = { checkAuthenticated, checkLoggedIn, verifyRole }
