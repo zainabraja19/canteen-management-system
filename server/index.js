@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session')
-const { checkAuthenticated, verifyRole } = require('./middleware/auth').default
+const { checkAuthenticated, verifyRole } = require('./middleware/auth')
 const app = express()
 
 mongoose.connect('mongodb://127.0.0.1:27017/canteenDB').then(() => {
