@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const Menu = require("../models/menu")
 const Cart = require("../models/cart")
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth').default
 const { ObjectId } = require('mongodb');
 const Employee = require('../models/employee');
 const Order = require('../models/orders')
 
 // Remaining orders
-router.get('/', async (req, res) => {
+router.get('/orders', async (req, res) => {
     const orders = await Order.find({})
         .populate('employee', '-password')
         .populate('items.item')

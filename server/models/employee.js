@@ -49,6 +49,7 @@ const employeeSchema = mongoose.Schema({
     }
 })
 
+// Handle signup errors
 employeeSchema.statics.handleError = (error) => {
     const errors = {}
 
@@ -68,16 +69,7 @@ employeeSchema.statics.handleError = (error) => {
     return errors
 }
 
-employeeSchema.methods.generateAuthToken = async function () {
-    const emp = this
-    const token = jwt.sign({ _id: emp._id.toString() }, process.env.JWT_SECRET)
-
-    // emp.tokens = emp.tokens.concat({ token })
-    // await emp.save()
-
-    return token
-}
-
+// Find/verify user for login
 employeeSchema.statics.findByCredentials = async (email, password) => {
     // try {
     const emp = await Employee.findOne({ email })

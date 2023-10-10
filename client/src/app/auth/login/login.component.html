@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-12 d-flex justify-content-center align-items-center">
     <div class="card m-4 p-4 col-lg-6 col-md-8 col-12">
-      <!-- <div class="card-header p-3 text-center">LOGIN</div> -->
       <h4 class="text-center fw-bold">LOGIN</h4>
       <div class="card-body">
         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="error">
@@ -20,15 +19,6 @@
                 <i class="bi bi-info-circle"></i> Please enter a valid email!
               </div>
             </div>
-            <!-- <span
-            class="text-danger mt-2"
-            *ngIf="
-              (loginForm.value.email.touched || loginForm.submitted) &&
-              email.errors?.required
-            "
-          >
-            Name is required
-          </span> -->
           </div>
           <div class="col-12">
             <label for="password" class="form-label">Password</label>

@@ -34,9 +34,6 @@ export class AuthService {
             )
             .pipe(
                 catchError(this.handleError),
-                // tap((response) => {
-                //     return this.handleAuthentication(response);
-                // })
             );
     }
 
@@ -126,7 +123,6 @@ export class AuthService {
     }
 
     private handleError(errorRes) {
-        // let errorMessage = 'An error occurred. Please try again!';
         let errorMessage = 'An error occurred. Please try again!'
         let error = errorRes.error.error
 
@@ -148,7 +144,6 @@ export class AuthService {
             return throwError(() => new Error(errorMessage));
 
         }
-        // return throwError(() => new Error('An error occurred. Please try again!'));
         return throwError(
             () => new Error(errorMessage)
         );

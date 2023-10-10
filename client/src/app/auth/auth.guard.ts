@@ -1,20 +1,15 @@
-import { Injectable, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   CanActivateChildFn,
   CanActivateFn,
   Router,
-  RouterState,
-  RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { map, take } from 'rxjs/operators';
-import { User } from './user.model';
 
-// If user can access auth routes or not
+// Check if user is already logged in
 export const loginGuard: CanActivateChildFn = ():
   | boolean
   | UrlTree
@@ -35,6 +30,7 @@ export const loginGuard: CanActivateChildFn = ():
   return true;
 };
 
+// Check if user is authorized to view routes
 export const permissionGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
 ):

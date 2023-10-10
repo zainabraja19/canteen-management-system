@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const Menu = require("../models/menu")
 const Cart = require("../models/cart")
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth').default
 const { ObjectId } = require('mongodb');
 const Employee = require('../models/employee');
 const Order = require('../models/orders')
 
 // Show Menu
-router.get('/', async (req, res) => {
+router.get('/menu', async (req, res) => {
     try {
         const menu = await Menu.find({})
         // console.log(menu)
@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 })
 
 // Add to cart
-// router.patch('/add-to-cart', async (req, res) => {
+// router.patch('/cart', async (req, res) => {
 //     try {
 //         const employee = req.user.empId
 //         let cart = await Cart.findOne({ employee })
@@ -77,12 +77,14 @@ router.get('/', async (req, res) => {
 //     }
 // })
 
-router.patch('/delete-from-cart/:id', async (req, res) => {
+// Remove from cart
+router.patch('/cart/:id', async (req, res) => {
     // delete from cart (dec by 1)
     // recalculate cartTotal
     // update totalItems
 })
 
+// Get cart items count
 router.get('/cart-count', async (req, res) => {
     try {
         const cart = await Cart.findOne({ employee: req.user.empId })
@@ -92,7 +94,8 @@ router.get('/cart-count', async (req, res) => {
     }
 })
 
-router.get('/profile', async (req, res) => {
+// Get employee details
+router.get('/employee', async (req, res) => {
     try {
         // const emp = Employee.findById(req.user._id)
         res.status(200).json({ data: req.user })
@@ -101,7 +104,8 @@ router.get('/profile', async (req, res) => {
     }
 })
 
-router.delete('/delete-account', async (req, res) => {
+// Delete employee account
+router.delete('/employee', async (req, res) => {
     try {
         const emp = await Employee.findByIdAndDelete(req.user._id);
 
@@ -120,7 +124,8 @@ router.delete('/delete-account', async (req, res) => {
     }
 })
 
-router.get('/order-history', async (req, res) => {
+// Get order detail
+router.get('/order', async (req, res) => {
     try {
         const orders = await Order.findOne({ employee: req.user.empId })
             .populate("items.item")

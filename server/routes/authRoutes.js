@@ -1,18 +1,21 @@
 const router = require('express').Router();
 const Employee = require('../models/employee')
 const passport = require('passport');
-const auth = require('../middleware/auth')
-const { checkAuthenticated, checkLoggedIn } = require('../middleware/auth')
+const auth = require('../middleware/auth').default
+const { checkAuthenticated, checkLoggedIn } = require('../middleware/auth').default
 const jwt = require('jsonwebtoken')
 
+// User registration
 router.post('/signup', checkLoggedIn, async (req, res) => {
     const employee = new Employee(req.body)
-    // HANDLE SIGNUP VALIDATIONS PROPERLY
     try {
         await employee.save()
+
         const emp = { ...employee.toObject() };
+
         delete emp.password;
         delete emp.__v
+
         res.status(201).json({ data: emp })
     } catch (e) {
         const error = Employee.handleError(e)
@@ -20,7 +23,7 @@ router.post('/signup', checkLoggedIn, async (req, res) => {
     }
 })
 
-
+// User login
 router.post('/login', checkLoggedIn,
     passport.authenticate(
         'login', {
@@ -37,7 +40,7 @@ router.post('/login', checkLoggedIn,
     }
 );
 
-
+// User logout
 router.get('/logout', checkAuthenticated, async (req, res) => {
     try {
         req.logout(function (err) {
