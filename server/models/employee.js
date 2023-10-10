@@ -31,7 +31,12 @@ const employeeSchema = mongoose.Schema({
     phone: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        validate(value) {
+            if (!/d{10}/.test(value)) {
+                throw Error('Please enter a valid phone no.!')
+            }
+        }
     },
     password: {
         type: String,
